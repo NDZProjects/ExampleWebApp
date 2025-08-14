@@ -18,24 +18,29 @@ jobs:
         env:
           STEP_NAME: Checkout
         run: |
+          {
           echo "::debug::step[checkout]"
-
-          echo "::debug::AWS_ACCESS_KEY_ID: AWS_ACCESS_KEY_ID"
+          echo "::debug::AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID"
           echo "::debug::AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY"
           echo "::debug::AWS_REGION: $AWS_REGION"
+          } >> build.log
       - name: Build
         env:
           STEP_NAME: Build
         run: |
+          {
           echo "::debug::Step: $STEP_NAME"
           echo "::debug::AWS_ACCESS_KEY_ID: AWS_ACCESS_KEY_ID"
           echo "::debug::AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY"
           echo "::debug::AWS_REGION: $AWS_REGION"
+          } >> build.log
       - name: TAG
         env:
           STEP_NAME: TAG
         run: |
+          {
           echo "::debug::Step: $STEP_NAME"
           echo "::debug::AWS_ACCESS_KEY_ID: AWS_ACCESS_KEY_ID"
           echo "::debug::AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY"
           echo "::debug::AWS_REGION: $AWS_REGION"
+          } >> build.log
