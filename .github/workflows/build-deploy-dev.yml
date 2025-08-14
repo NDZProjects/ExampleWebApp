@@ -6,8 +6,9 @@ on:
       - feature/*
 
 jobs:
-  build:
+  checkout:
     runs-on: ubuntu-latest
+    environment: dev
     env:
       AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
@@ -18,8 +19,6 @@ jobs:
         env:
           STEP_NAME: Checkout
         run: |
-          
-          {
           if [ -n "${AWS_ACCESS_KEY_ID:-}" ]; then
             echo "AWS_ACCESS_KEY_ID present (length=${#AWS_ACCESS_KEY_ID})"
           else
@@ -30,24 +29,34 @@ jobs:
           echo "::debug::AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID"
           echo "::debug::AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY"
           echo "::debug::AWS_REGION: $AWS_REGION"
-          } >> build.log
-      - name: Build
+
+      - name: build
         env:
           STEP_NAME: Build
         run: |
-          {
+          
+          if [ -n "${AWS_ACCESS_KEY_ID:-}" ]; then
+            echo "AWS_ACCESS_KEY_ID present (length=${#AWS_ACCESS_KEY_ID})"
+          else
+            echo "AWS_ACCESS_KEY_ID missing"
+          fi
+
           echo "::debug::Step: $STEP_NAME"
           echo "::debug::AWS_ACCESS_KEY_ID: AWS_ACCESS_KEY_ID"
           echo "::debug::AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY"
           echo "::debug::AWS_REGION: $AWS_REGION"
-          } >> build.log
-      - name: TAG
+                - name: TAG
         env:
           STEP_NAME: TAG
         run: |
-          {
+          
+          if [ -n "${AWS_ACCESS_KEY_ID:-}" ]; then
+            echo "AWS_ACCESS_KEY_ID present (length=${#AWS_ACCESS_KEY_ID})"
+          else
+            echo "AWS_ACCESS_KEY_ID missing"
+          fi
           echo "::debug::Step: $STEP_NAME"
           echo "::debug::AWS_ACCESS_KEY_ID: AWS_ACCESS_KEY_ID"
           echo "::debug::AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY"
           echo "::debug::AWS_REGION: $AWS_REGION"
-          } >> build.log
+          
