@@ -60,3 +60,55 @@ jobs:
           echo "::debug::AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY"
           echo "::debug::AWS_REGION: $AWS_REGION"
           
+  deploy-to-dev:
+    runs-on: ubuntu-latest
+    environment: dev
+    env:
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      AWS_REGION: ${{ secrets.AWS_REGION }}
+    steps:
+        - name: setup
+          env:
+            STEP_NAME: Generate Hash
+          run: |
+            if [ -n "${AWS_ACCESS_KEY_ID:-}" ]; then
+              echo "AWS_ACCESS_KEY_ID present (length=${#AWS_ACCESS_KEY_ID})"
+            else
+              echo "AWS_ACCESS_KEY_ID missing"
+            fi
+
+            echo "::debug::step[checkout]"
+            echo "::debug::AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID"
+            echo "::debug::AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY"
+            echo "::debug::AWS_REGION: $AWS_REGION"
+
+        - name: build
+          env:
+            STEP_NAME: Upload Artifact
+          run: |
+
+            if [ -n "${AWS_ACCESS_KEY_ID:-}" ]; then
+              echo "AWS_ACCESS_KEY_ID present (length=${#AWS_ACCESS_KEY_ID})"
+            else
+              echo "AWS_ACCESS_KEY_ID missing"
+            fi
+
+            echo "::debug::Step: $STEP_NAME"
+            echo "::debug::AWS_ACCESS_KEY_ID: AWS_ACCESS_KEY_ID"
+            echo "::debug::AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY"
+            echo "::debug::AWS_REGION: $AWS_REGION"
+                  - name: TAG
+        - name: Tag
+          env:
+            STEP_NAME: Prepare Statement
+          run: |
+            if [ -n "${AWS_ACCESS_KEY_ID:-}" ]; then
+              echo "AWS_ACCESS_KEY_ID present (length=${#AWS_ACCESS_KEY_ID})"
+            else
+              echo "AWS_ACCESS_KEY_ID missing"
+            fi
+            echo "::debug::Step: $STEP_NAME"
+            echo "::debug::AWS_ACCESS_KEY_ID: AWS_ACCESS_KEY_ID"
+            echo "::debug::AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY"
+            echo "::debug::AWS_REGION: $AWS_REGION"
