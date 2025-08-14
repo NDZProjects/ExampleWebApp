@@ -20,12 +20,6 @@ jobs:
         env:
           STEP_NAME: Checkout
         run: |
-          if [ -n "${AWS_ACCESS_KEY_ID}" ]; then
-            echo "AWS_ACCESS_KEY_ID present (length=${#AWS_ACCESS_KEY_ID})"
-          else
-            echo "AWS_ACCESS_KEY_ID missing"
-          fi
-    
           echo "::debug::step[checkout]"
           echo "::debug::AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID"
           echo "::debug::AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY"
