@@ -1,0 +1,16 @@
+# YAML
+name: build-deploy-dev.yml
+on:
+  push:
+    branches:
+      - feature/*
+
+jobs:
+  build:
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Build
+        env:
+          STEP_NAME: Build
+        run: |
+          echo "Step: $STEP_NAME"
