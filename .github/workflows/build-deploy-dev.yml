@@ -14,9 +14,25 @@ jobs:
       AWS_REGION: ${{ secrets.AWS_REGION }}
 
     steps:
+      - name: Checkout
+        env:
+          STEP_NAME: Checkout
+        run: |
+          echo "Step: $STEP_NAME"
+          echo "AWS_ACCESS_KEY_ID: AWS_ACCESS_KEY_ID"
+          echo "AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY"
+          echo "AWS_REGION: $AWS_REGION"
       - name: Build
         env:
           STEP_NAME: Build
+        run: |
+          echo "Step: $STEP_NAME"
+          echo "AWS_ACCESS_KEY_ID: AWS_ACCESS_KEY_ID"
+          echo "AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY"
+          echo "AWS_REGION: $AWS_REGION"
+      - name: TAG
+        env:
+          STEP_NAME: TAG
         run: |
           echo "Step: $STEP_NAME"
           echo "AWS_ACCESS_KEY_ID: AWS_ACCESS_KEY_ID"
