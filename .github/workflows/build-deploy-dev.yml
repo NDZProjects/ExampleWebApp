@@ -13,4 +13,4 @@ jobs:
         env:
           STEP_NAME: Build
         run: |
-          echo "Step: $STEP_NAME"
+        npm install
